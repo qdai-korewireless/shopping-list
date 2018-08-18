@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using alpha.Models;
 using alpha.Services;
 using Microsoft.AspNetCore.Mvc;
 
@@ -9,6 +10,8 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace alpha.Controllers
 {
+    [Route("[controller]")]
+    [Route("/")]
     public class HomeController : Controller
     {
         IInventoryService _inventoryService;
@@ -18,7 +21,12 @@ namespace alpha.Controllers
         // GET: /<controller>/
         public IActionResult Index()
         {
-            return View();
+
+            var item = new Item();
+            item.Name = "Apple";
+
+
+            return View(item);
         }
 
 

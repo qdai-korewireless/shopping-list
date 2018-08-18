@@ -6,6 +6,11 @@ namespace alpha.Models
         public Item()
         {
         }
+        public int Id
+        {
+            get;
+            set;
+        }
 
         public string Name
         {
