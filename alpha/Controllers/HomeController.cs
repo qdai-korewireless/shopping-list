@@ -25,22 +25,7 @@ namespace alpha.Controllers
 
             var item = new Item();
             item.Name = "Apple";
-            var myCassandraCluster = Cluster.Builder()
-                                            .AddContactPoint("localhost")
-    //.WithAuthProvider(new DsePlainTextAuthProvider("username", "password"))
-    .Build();
-            using (var session = myCassandraCluster.Connect("shoppingcart"))
-            {
-               
-                var query = new SimpleStatement("SELECT id, name, quantity, typeid FROM item where id = ?", 1);
-                var rs =  session.Execute(query);
-                var row = rs.FirstOrDefault();
-                if (row != null)
-                {
-                    var itemName = row.GetValue(typeof(string), 1);
-                    item.Name = itemName.ToString();
-                }
-            }
+
             return View(item);
         }
 

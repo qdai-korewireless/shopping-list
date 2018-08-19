@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using alpha.Repositories;
 using alpha.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -18,6 +19,8 @@ namespace alpha
         {
             services.AddMvc();
             services.AddScoped<IInventoryService, InventoryService>();
+            services.AddScoped<IMealService, MealService>();
+            services.AddScoped<IDishRepository, DishRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

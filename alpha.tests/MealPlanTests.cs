@@ -7,12 +7,13 @@ using FluentAssertions;
 using AutoFixture.Xunit2;
 using AutoFixture;
 using AutoFixture.AutoMoq;
+using alpha.Repositories;
 
 namespace alpha.tests
 {
     public class MealPlanTests
     {
-
+        
         public MealPlanTests(){
             
         }
@@ -35,7 +36,26 @@ namespace alpha.tests
         }
 
         [Theory, AutoMoqData]
-        public void test(){
+        public void GetAllDishes_CallRepo_GetAll([Frozen]IDishRepository dishRepo,MealService mealService)
+        {
+            // Setup
+            var dishRepoMock = Mock.Get(dishRepo);
+
+            // Action
+            var dishes = mealService.GetDishes();
+
+            // Assert
+            dishRepoMock.Verify(m => m.GetAll());
+
+        }
+
+        [Fact]
+        public void testDishRepo(){
+
+            var repo = new DishRepository();
+            var dish  = repo.Get(1);
+
+            dish.Id.Should().Be(1);
 
         }
 

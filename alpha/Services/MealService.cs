@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using alpha.Models;
+using alpha.Repositories;
 
 namespace alpha.Services
 {
@@ -8,21 +10,43 @@ namespace alpha.Services
     public interface IMealService{
         IList<Dish> GetDishes();
         IList<Item> ShowItemsForDish(Dish dish);
+        void AddDish(Dish dish);
+        void UpdateDish(Dish dish);
+        void DeleteDish(int id);
+
     }
     public class MealService: IMealService
     {
-        public MealService()
+        public readonly IDishRepository dishRepo;
+
+        public MealService(IDishRepository dishRepo)
         {
+            this.dishRepo = dishRepo;
+        }
+
+        public void AddDish(Dish dish)
+        {
+            dishRepo.Add(dish);
+        }
+
+        public void DeleteDish(int id)
+        {
+            dishRepo.Delete(id);
         }
 
         public IList<Dish> GetDishes()
         {
-            throw new NotImplementedException();
+            return dishRepo.GetAll()?.ToList();
         }
 
         public IList<Item> ShowItemsForDish(Dish dish)
         {
             throw new NotImplementedException();
+        }
+
+        public void UpdateDish(Dish dish)
+        {
+            dishRepo.Update(dish);
         }
     }
 }
