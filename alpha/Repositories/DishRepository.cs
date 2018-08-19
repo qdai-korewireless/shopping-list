@@ -11,10 +11,12 @@ namespace alpha.Repositories
     }
     public class DishRepository:IDishRepository
     {
-       // Cluster myCassandraCluster;
-        public DishRepository()
+
+        IMapper mapper;
+
+        public DishRepository(IMapper mapper)
         {
-            
+            this.mapper = mapper;
         }
 
         public void Add(Dish item)
@@ -27,24 +29,15 @@ namespace alpha.Repositories
             throw new NotImplementedException();
         }
 
-        public Dish Get(int id)
-        {
-            var dishId = id;
-            var myCassandraCluster = Cluster.Builder().AddContactPoint("localhost").Build();
-            Dish dish = null;
-            using (var session = myCassandraCluster.Connect("shoppingcart"))
-            {
-
-                IMapper mapper = new Mapper(session);
-                dish = mapper.Single<Dish>("SELECT id, name FROM dish where id = ?", dishId);
-            }
-
+        public Dish Get(int dishId)
+        {       
+            var dish = mapper.Single<Dish>("SELECT id, name FROM dish where id = ?", dishId);
             return dish;
         }
 
         public IEnumerable<Dish> GetAll()
         {
-            throw new NotImplementedException();
+            return mapper.Fetch<Dish>();
         }
 
         public void Update(Dish item)
@@ -52,6 +45,5 @@ namespace alpha.Repositories
             throw new NotImplementedException();
         }
     }
-
 
 }

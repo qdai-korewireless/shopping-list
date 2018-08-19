@@ -15,18 +15,19 @@ namespace alpha.Controllers
     [Route("/")]
     public class HomeController : Controller
     {
-        IInventoryService _inventoryService;
-        public HomeController(IInventoryService inventoryService){
-            _inventoryService = inventoryService;
+        private readonly IInventoryService inventoryService;
+        private readonly IMealService mealService;
+
+        public HomeController(IInventoryService inventoryService, IMealService mealService)
+        {
+            this.inventoryService = inventoryService;
+            this.mealService = mealService;
         }
         // GET: /<controller>/
         public IActionResult Index()
         {
-
-            var item = new Item();
-            item.Name = "Apple";
-
-            return View(item);
+            var dishes = mealService.GetDishes();
+            return View(dishes);
         }
 
 

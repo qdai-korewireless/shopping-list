@@ -1,6 +1,11 @@
 ﻿
-@model alpha.Models.Item
+@model IEnumerable<alpha.Models.Dish>
 
 
-<h1>Hello World Danny</h1>
-<h1>@Model.Name</h1>
+<h1>Dishes</h1>
+
+@foreach(var d in Model)
+{
+    <li>@d.Name</li>
+
+}

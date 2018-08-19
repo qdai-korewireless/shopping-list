@@ -8,6 +8,7 @@ using AutoFixture.Xunit2;
 using AutoFixture;
 using AutoFixture.AutoMoq;
 using alpha.Repositories;
+using System.Linq;
 
 namespace alpha.tests
 {
@@ -49,15 +50,7 @@ namespace alpha.tests
 
         }
 
-        [Fact]
-        public void testDishRepo(){
-
-            var repo = new DishRepository();
-            var dish  = repo.Get(1);
-
-            dish.Id.Should().Be(1);
-
-        }
+      
 
 
 

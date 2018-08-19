@@ -21,6 +21,16 @@ namespace alpha
             services.AddScoped<IInventoryService, InventoryService>();
             services.AddScoped<IMealService, MealService>();
             services.AddScoped<IDishRepository, DishRepository>();
+
+            //Cassandra config
+            //create single instance of connection builder, then for each request, create a session, which feed the mapper
+            //the mapper is configured with MappingConfiguration and customized ShoppingCartMappings
+            services.AddSingleton<Cassandra.ICluster>((t) => Cassandra.Cluster.Builder().AddContactPoint("localhost").Build());
+            services.AddScoped<Cassandra.ISession>((t) => t.GetService<Cassandra.ICluster>().Connect("shoppingcart"));
+            services.AddScoped<Cassandra.Mapping.IMapper, Cassandra.Mapping.Mapper>();
+
+
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -30,6 +40,8 @@ namespace alpha
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            Cassandra.Mapping.MappingConfiguration.Global.Define<ShoppingCartMappings>();
 
             app.UseMvc();
 
