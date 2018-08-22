@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace alpha
 {
@@ -28,7 +29,10 @@ namespace alpha
             services.AddSingleton<Cassandra.ICluster>((t) => Cassandra.Cluster.Builder().AddContactPoint("localhost").Build());
             services.AddScoped<Cassandra.ISession>((t) => t.GetService<Cassandra.ICluster>().Connect("shoppingcart"));
             services.AddScoped<Cassandra.Mapping.IMapper, Cassandra.Mapping.Mapper>();
-
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Alpha.ShoppingCart", Version = "v1" });
+            });
 
 
         }
@@ -44,11 +48,14 @@ namespace alpha
             Cassandra.Mapping.MappingConfiguration.Global.Define<ShoppingCartMappings>();
 
             app.UseMvc();
-
-            app.Run(async (context) =>
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Shopping Cart");
+                c.RoutePrefix = string.Empty;
             });
+
+      
         }
     }
 }

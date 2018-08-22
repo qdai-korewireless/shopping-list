@@ -21,12 +21,12 @@ namespace alpha.Repositories
 
         public void Add(Dish item)
         {
-            throw new NotImplementedException();
+            mapper.Insert(item);
         }
 
-        public void Delete(int id)
+        public void Delete(Dish dish)
         {
-            throw new NotImplementedException();
+            mapper.Delete(dish);
         }
 
         public Dish Get(int dishId)
@@ -42,7 +42,7 @@ namespace alpha.Repositories
 
         public void Update(Dish item)
         {
-            throw new NotImplementedException();
+            mapper.Update(item);
         }
     }
 

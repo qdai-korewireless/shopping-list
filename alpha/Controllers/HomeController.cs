@@ -12,7 +12,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace alpha.Controllers
 {
     [Route("[controller]")]
-    [Route("/")]
+    [Produces("application/json")]
     public class HomeController : Controller
     {
         private readonly IInventoryService inventoryService;
@@ -23,11 +23,24 @@ namespace alpha.Controllers
             this.inventoryService = inventoryService;
             this.mealService = mealService;
         }
-        // GET: /<controller>/
+
+        [HttpGet]
         public IActionResult Index()
         {
             var dishes = mealService.GetDishes();
             return View(dishes);
+        }
+
+        [HttpPost("AddDish")]
+        public IActionResult AddDish([FromBody]Dish dish){
+            mealService.AddDish(dish);
+            return Ok();
+        }
+
+        [HttpPost("deleteDish")]
+        public IActionResult DeleteDish([FromBody]int id){
+            mealService.DeleteDish(id);
+            return Ok();
         }
 
 

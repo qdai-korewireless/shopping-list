@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using alpha.Models;
 using alpha.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace alpha.Services
 {
@@ -24,6 +25,7 @@ namespace alpha.Services
             this.dishRepo = dishRepo;
         }
 
+
         public void AddDish(Dish dish)
         {
             dishRepo.Add(dish);
@@ -31,7 +33,8 @@ namespace alpha.Services
 
         public void DeleteDish(int id)
         {
-            dishRepo.Delete(id);
+            var dish = dishRepo.Get(id);
+            dishRepo.Delete(dish);
         }
 
         public IList<Dish> GetDishes()
