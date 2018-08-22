@@ -7,5 +7,9 @@
 @foreach(var d in Model)
 {
     <li>@d.Name</li>
-
+    <li>
+        @foreach(var i in d.Items){
+            <ul>@i.Name</ul>
+        }
+    </li>
 }

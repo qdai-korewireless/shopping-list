@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace alpha.Controllers
 {
-    [Route("[controller]")]
+    [Route("[controller]/[action]")]
     [Produces("application/json")]
     public class HomeController : Controller
     {

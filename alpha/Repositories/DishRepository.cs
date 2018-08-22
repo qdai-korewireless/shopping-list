@@ -3,6 +3,7 @@ using alpha.Models;
 using Cassandra.Mapping;
 using Cassandra;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace alpha.Repositories
 {
@@ -37,7 +38,15 @@ namespace alpha.Repositories
 
         public IEnumerable<Dish> GetAll()
         {
-            return mapper.Fetch<Dish>();
+            var allItems = mapper.Fetch<Item>().ToList();
+
+            var allDishes = mapper.Fetch<Dish>().ToList();
+
+            allDishes.ForEach(d => {
+                d.Items = allItems.Where(i => i.DishId == d.Id).ToList();
+            });
+
+            return allDishes;
         }
 
         public void Update(Dish item)

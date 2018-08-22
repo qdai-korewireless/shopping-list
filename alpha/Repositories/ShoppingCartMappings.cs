@@ -15,6 +15,15 @@ namespace alpha.Repositories
                .Column(u => u.Id, cm => cm.WithName("id"))
                 .Column(u => u.Name, cm => cm.WithName("name"))
                 .Column(u => u.Items, cm => cm.Ignore());
+            For<Item>()
+                .TableName("item")
+                .PartitionKey(u => u.Id)
+                .Column(u => u.Id, cm => cm.WithName("id"))
+                .Column(u => u.DishId, cm => cm.WithName("dishid"))
+                .Column(u => u.Name, cm => cm.WithName("name"))
+                .Column(u => u.Quantity, cm => cm.WithName("quantity"))
+                .Column(u => u.Type, cm => cm.Ignore())
+                ;
 
         }
     }

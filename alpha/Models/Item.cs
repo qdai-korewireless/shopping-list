@@ -12,6 +12,12 @@ namespace alpha.Models
             set;
         }
 
+        public int DishId
+        {
+            get;
+            set;
+        }
+
         public string Name
         {
             get;
