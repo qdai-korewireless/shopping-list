@@ -1,18 +1,20 @@
 ﻿using System;
+using alpha.Repositories;
+
 namespace alpha.Models
 {
-    public class Item
+    public class Item: IIdentity
     {
         public Item()
         {
         }
-        public int Id
+        public Guid Id
         {
             get;
             set;
         }
 
-        public int DishId
+        public Guid DishId
         {
             get;
             set;

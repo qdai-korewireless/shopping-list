@@ -1,15 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using alpha.Repositories;
 
 namespace alpha.Models
 {
-    public class Dish
+    public class Dish:IIdentity
     {
         public Dish()
         {
         }
 
-        public int Id
+        public Guid Id
         {
             get;
             set;

@@ -6,10 +6,13 @@
 
 @foreach(var d in Model)
 {
-    <li>@d.Name</li>
+    <li>@d.Name <a asp-action="EditDish" asp-route-id="@d.Id">Edit</a></li>
     <li>
         @foreach(var i in d.Items){
-            <ul>@i.Name</ul>
+            <ul>@i.Name @i.Type</ul>
+
         }
     </li>
 }
+
+<a asp-controller="Dish" asp-action="AddDish">Add Dish</a>

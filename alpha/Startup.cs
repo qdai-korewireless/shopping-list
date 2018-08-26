@@ -22,6 +22,8 @@ namespace alpha
             services.AddScoped<IInventoryService, InventoryService>();
             services.AddScoped<IMealService, MealService>();
             services.AddScoped<IDishRepository, DishRepository>();
+            services.AddScoped(typeof(IRepository<>), typeof(CassandraRepository<>));
+            services.AddScoped<IItemRepository, ItemRepository>();
 
             //Cassandra config
             //create single instance of connection builder, then for each request, create a session, which feed the mapper
@@ -47,7 +49,12 @@ namespace alpha
 
             Cassandra.Mapping.MappingConfiguration.Global.Define<ShoppingCartMappings>();
 
-            app.UseMvc();
+            app.UseMvc(routes=>{
+                routes.MapRoute(
+                    name: "default",
+                    template: "{controller}/{action}/{id?}"
+                );
+            });
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {

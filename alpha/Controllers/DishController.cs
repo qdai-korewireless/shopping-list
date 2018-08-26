@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using alpha.Models;
 using alpha.Services;
-using Cassandra;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -12,13 +11,13 @@ using Microsoft.AspNetCore.Mvc;
 namespace alpha.Controllers
 {
     [Route("[controller]/[action]")]
-    [Produces("application/json")]
-    public class HomeController : Controller
+    public class DishController : Controller
     {
+
         private readonly IInventoryService inventoryService;
         private readonly IMealService mealService;
 
-        public HomeController(IInventoryService inventoryService, IMealService mealService)
+        public DishController(IInventoryService inventoryService, IMealService mealService)
         {
             this.inventoryService = inventoryService;
             this.mealService = mealService;
@@ -27,12 +26,23 @@ namespace alpha.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            var dishes = mealService.GetDishes();
-            return View(dishes);
+            var dish = mealService.GetDish(new Guid("0edd837b-0096-443a-a633-040311c6fde8"));
+            return View("NewDish", new Dish() {Items = new List<Item>() {new Item()}});
+        }
+
+        [HttpPost()]
+        public IActionResult Add([FromForm]Dish dish)
+        {
+            var newDish = mealService.AddDish(dish);
+            return View("NewDish", newDish);
         }
 
 
-
-
+        [HttpPost()]
+        public IActionResult Delete([FromForm]Guid id)
+        {
+            mealService.DeleteDish(id);
+            return Ok();
+        }
     }
 }

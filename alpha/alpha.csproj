@@ -11,6 +11,9 @@
     <Folder Include="Views\" />
     <Folder Include="Views\Home\" />
     <Folder Include="Repositories\" />
+    <Folder Include="Views\Shared\" />
+    <Folder Include="Views\Dish\" />
+    <Folder Include="Views\Item\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" Version="2.1.2" />

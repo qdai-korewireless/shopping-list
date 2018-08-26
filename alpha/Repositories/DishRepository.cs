@@ -20,9 +20,11 @@ namespace alpha.Repositories
             this.mapper = mapper;
         }
 
-        public void Add(Dish item)
+        public Guid Add(Dish item)
         {
+            item.Id = Guid.NewGuid();
             mapper.Insert(item);
+            return item.Id;
         }
 
         public void Delete(Dish dish)
@@ -30,7 +32,7 @@ namespace alpha.Repositories
             mapper.Delete(dish);
         }
 
-        public Dish Get(int dishId)
+        public Dish Get(Guid dishId)
         {       
             var dish = mapper.Single<Dish>("SELECT id, name FROM dish where id = ?", dishId);
             return dish;

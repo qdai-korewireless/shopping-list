@@ -22,7 +22,7 @@ namespace alpha.Repositories
                 .Column(u => u.DishId, cm => cm.WithName("dishid"))
                 .Column(u => u.Name, cm => cm.WithName("name"))
                 .Column(u => u.Quantity, cm => cm.WithName("quantity"))
-                .Column(u => u.Type, cm => cm.Ignore())
+                .Column(u => u.Type, cm => cm.WithName("typeid").WithDbType<int>())
                 ;
 
         }
