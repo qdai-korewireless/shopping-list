@@ -1,0 +1,34 @@
+﻿@model alpha.Models.Dish
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+
+}
+
+<form asp-controller="Dish" asp-action="Save" method="post">
+    <label asp-for="Name"></label>  <input asp-for="Name" /> <br />
+
+    <input type="submit" />
+</form>
+Item list:
+@if (Model.Items != null && Model.Items.Any())
+{
+    <ul>
+
+        @foreach (var i in Model.Items)
+        {
+        <li>@i.Name: @i.Quantity</li>
+        }
+
+        
+    </ul>
+}
+    <a asp-controller="Item" asp-action="Index" asp-route-dishId="@Model.Id">Add Item</a>
+
+    <a asp-controller="Home">back to home</a>
+
+
+
+
+

@@ -20,14 +20,14 @@ namespace alpha.Controllers
         // GET: /<controller>/
         public IActionResult Index(Guid dishId)
         {
-            return View("NewItem", new Item() {DishId = dishId});
+            return View("Index", new Item() {DishId = dishId});
         }
 
         [HttpPost()]
         public IActionResult AddItem([FromForm] Item item)
         {
-            mealService.AddItemToDish(item);
-            return Ok();
+            var itemId = mealService.AddItemToDish(item);
+            return RedirectToAction("Index", "Dish", new {id = item.DishId});
         }
     }
 }

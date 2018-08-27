@@ -14,15 +14,15 @@ namespace alpha.Services
         Dish AddDish(Dish dish);
         void UpdateDish(Dish dish);
         void DeleteDish(Guid id);
-        Dish AddItemToDish(Item item);
+        Guid AddItemToDish(Item item);
         Dish GetDish(Guid dishId);
     }
     public class MealService: IMealService
     {
-        public readonly IDishRepository dishRepo;
-        private readonly IItemRepository itemRepo;
+        private readonly IRepository<Dish> dishRepo;
+        private readonly IRepository<Item> itemRepo;
 
-        public MealService(IDishRepository dishRepo, IItemRepository itemRepo)
+        public MealService(IRepository<Dish> dishRepo, IRepository<Item> itemRepo)
         {
             this.dishRepo = dishRepo;
             this.itemRepo = itemRepo;
@@ -37,29 +37,36 @@ namespace alpha.Services
 
         }
 
-        public Dish AddItemToDish(Item item){
+        public Guid AddItemToDish(Item item){
+            if(item.DishId == null || item.DishId == Guid.Empty){
+                return Guid.Empty;
+            }
             var itemId = itemRepo.Add(item);
-            var newItem = itemRepo.Get(itemId);
-            var dish = dishRepo.Get(item.DishId);
-            
-            return dish;
+            return itemId;
         }
 
         public void DeleteDish(Guid id)
         {
             var dish = dishRepo.Get(id);
-            dishRepo.Delete(dish);
+            if(dish.Id !=null && dish.Id != Guid.Empty){
+                dishRepo.Delete(dish);
+            }
         }
 
         public Dish GetDish(Guid dishId)
         {
             var dish = dishRepo.Get(dishId);
+            var items = itemRepo.GetBy("where dishid = ?", dishId);
+            dish.Items = items.ToList();
             return dish;
         }
 
         public IList<Dish> GetDishes()
         {
-            return dishRepo.GetAll()?.ToList();
+            var dishes = dishRepo.GetAll()?.ToList();
+            var items = itemRepo.GetAll().ToList();
+            dishes.ForEach(d => d.Items = items.Where(i => i.DishId == d.Id).ToList());
+            return dishes;
         }
 
         public IList<Item> ShowItemsForDish(Dish dish)
@@ -71,5 +78,6 @@ namespace alpha.Services
         {
             dishRepo.Update(dish);
         }
+
     }
 }

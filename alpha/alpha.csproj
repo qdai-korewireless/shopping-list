@@ -41,5 +41,6 @@
     <Compile Remove="alpha.tests\EmptyClass.cs" />
     <Compile Remove="alpha.tests\MealPlanTests.cs" />
     <Compile Remove="dommy\UnitTest1.cs" />
+    <Compile Remove="Repositories\DishRepository.cs" />
   </ItemGroup>
 </Project>

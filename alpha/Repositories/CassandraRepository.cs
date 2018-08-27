@@ -43,6 +43,12 @@ namespace alpha.Repositories
             return items;
         }
 
+        public IEnumerable<T> GetBy(string query, params object[] param)
+        {
+            var items = mapper.Fetch<T>(query, param);
+            return items;
+        }
+
         public void Update(T item)
         {
             mapper.Update(item);

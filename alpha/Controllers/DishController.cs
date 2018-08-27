@@ -24,17 +24,27 @@ namespace alpha.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index(Guid ?id)
         {
-            var dish = mealService.GetDish(new Guid("0edd837b-0096-443a-a633-040311c6fde8"));
-            return View("NewDish", new Dish() {Items = new List<Item>() {new Item()}});
+            if(id.HasValue && id != Guid.Empty){
+                var dish = mealService.GetDish(id.Value);
+                return View("Index", dish);
+            }
+            return View("Index", new Dish() {Items = new List<Item>() {new Item()}});
         }
 
         [HttpPost()]
-        public IActionResult Add([FromForm]Dish dish)
+        public IActionResult Save([FromForm]Dish dish)
         {
-            var newDish = mealService.AddDish(dish);
-            return View("NewDish", newDish);
+
+            if(dish.Id != Guid.Empty){
+                mealService.UpdateDish(dish);
+            }
+            else{
+                dish = mealService.AddDish(dish);
+            }
+
+            return View("Index", dish);
         }
 
 

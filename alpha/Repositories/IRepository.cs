@@ -8,9 +8,11 @@ namespace alpha.Repositories
     {
         T Get(Guid id);
         IEnumerable<T> GetAll();
+        IEnumerable<T> GetBy(string query, params object[] param);
         Guid Add(T item);
         void Update(T item);
         void Delete(T item);
+
     }
 
     public interface IIdentity{

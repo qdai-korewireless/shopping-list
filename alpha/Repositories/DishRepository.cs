@@ -15,7 +15,7 @@ namespace alpha.Repositories
 
         IMapper mapper;
 
-        public DishRepository(IMapper mapper)
+        public DishRepository(IRe mapper)
         {
             this.mapper = mapper;
         }
