@@ -1,4 +1,5 @@
-﻿using alpha.Services;
+﻿using System;
+using alpha.Services;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -25,6 +26,11 @@ namespace alpha.Controllers
             return View(dishes);
         }
 
+        [HttpGet]
+        public IActionResult DeleteDish(Guid id){
+            mealService.DeleteDish(id);
+            return RedirectToAction("Index");
+        }
 
 
 

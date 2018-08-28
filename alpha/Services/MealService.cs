@@ -48,8 +48,10 @@ namespace alpha.Services
         public void DeleteDish(Guid id)
         {
             var dish = dishRepo.Get(id);
+            var items = itemRepo.GetBy("where dishid = ?", id).ToList();
             if(dish.Id !=null && dish.Id != Guid.Empty){
                 dishRepo.Delete(dish);
+                items.ForEach(i => itemRepo.Delete(i));
             }
         }
 
