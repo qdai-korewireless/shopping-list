@@ -5,8 +5,6 @@ using Moq;
 using Xunit;
 using FluentAssertions;
 using AutoFixture.Xunit2;
-using AutoFixture;
-using AutoFixture.AutoMoq;
 using alpha.Repositories;
 using System.Linq;
 
@@ -37,7 +35,7 @@ namespace alpha.tests
         }
 
         [Theory, AutoMoqData]
-        public void GetAllDishes_CallRepo_GetAll([Frozen]IDishRepository dishRepo,MealService mealService)
+        public void GetAllDishes_CallRepo_GetAll([Frozen]IRepository<Dish> dishRepo,MealService mealService)
         {
             // Setup
             var dishRepoMock = Mock.Get(dishRepo);
@@ -61,21 +59,6 @@ namespace alpha.tests
 
 
 
-    }
-    public class AutoMoqDataAttribute : AutoDataAttribute
-    {
-        public AutoMoqDataAttribute()
-            : base(() => new Fixture().Customize(new AutoMoqCustomization()))
-        {
-        }
-    }
-
-    public class InlineAutoMoqDataAttribute : CompositeDataAttribute
-    {
-        public InlineAutoMoqDataAttribute(params object[] values)
-            : base(new InlineDataAttribute(values), new AutoMoqDataAttribute())
-        {
-        }
     }
 
 

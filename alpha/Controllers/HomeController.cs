@@ -10,12 +10,11 @@ namespace alpha.Controllers
     [Produces("application/json")]
     public class HomeController : Controller
     {
-        private readonly IInventoryService inventoryService;
+
         private readonly IMealService mealService;
 
-        public HomeController(IInventoryService inventoryService, IMealService mealService)
+        public HomeController(IMealService mealService)
         {
-            this.inventoryService = inventoryService;
             this.mealService = mealService;
         }
 
