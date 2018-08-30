@@ -7,7 +7,7 @@
 }
 
 <form asp-controller="Dish" asp-action="Save" method="post">
-    <label asp-for="Name"></label>  <input asp-for="Name" /> <br />
+    <label asp-for="Name"></label>  <input asp-for="Name" data-val="true" data-val-required="The name field is required."/><span asp-validation-for="Name"></span> <br />
 
     <input type="submit" />
 </form>

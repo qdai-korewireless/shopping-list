@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using alpha.Repositories;
 
 namespace alpha.Models
@@ -16,6 +17,7 @@ namespace alpha.Models
             set;
         }
 
+        [Required]
         public string Name
         {
             get;

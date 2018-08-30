@@ -16,23 +16,6 @@ namespace alpha.tests
         public MealPlanTests(){
             
         }
-        [Theory, AutoMoqData]
-        public void add_item_to_inventory(IInventoryService invService)
-        {
-            // Setup
-
-            var inventory = invService;
-
-            // Action
-
-            inventory.AddItem(new Item { Name = "Milk", Quantity = 1, Type = ItemType.Drink });
-
-
-            // Assert
-
-            inventory.GetInventoryItems().Count.Should().Be(1);
-
-        }
 
         [Theory, AutoMoqData]
         public void GetAllDishes_CallRepo_GetAll([Frozen]IRepository<Dish> dishRepo,MealService mealService)
@@ -47,17 +30,6 @@ namespace alpha.tests
             dishRepoMock.Verify(m => m.GetAll());
 
         }
-
-        [Fact]
-        public void adddish(){
-
-            
-        }
-
-      
-
-
-
 
     }
 

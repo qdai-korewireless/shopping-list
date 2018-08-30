@@ -14,12 +14,10 @@ namespace alpha.Controllers
     public class DishController : Controller
     {
 
-        private readonly IInventoryService inventoryService;
         private readonly IMealService mealService;
 
-        public DishController(IInventoryService inventoryService, IMealService mealService)
+        public DishController(IMealService mealService)
         {
-            this.inventoryService = inventoryService;
             this.mealService = mealService;
         }
 
@@ -36,14 +34,16 @@ namespace alpha.Controllers
         [HttpPost()]
         public IActionResult Save([FromForm]Dish dish)
         {
-
-            if(dish.Id != Guid.Empty){
-                mealService.UpdateDish(dish);
+            if(ModelState.IsValid){
+                if (dish.Id != Guid.Empty)
+                {
+                    mealService.UpdateDish(dish);
+                }
+                else
+                {
+                    dish = mealService.AddDish(dish);
+                }
             }
-            else{
-                dish = mealService.AddDish(dish);
-            }
-
             return View("Index", dish);
         }
 
