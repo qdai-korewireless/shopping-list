@@ -117,6 +117,7 @@ namespace alpha.tests
             var mealMock = Mock.Get(mealService);
             var dishController = new DishController(mealMock.Object);
             dishController.ModelState.AddModelError("Name", "Required");
+
             //Act
 
             var sut = dishController.Save(dish);
