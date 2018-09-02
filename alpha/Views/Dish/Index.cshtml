@@ -6,9 +6,9 @@
 
 }
 
-<form asp-controller="Dish" asp-action="Save" method="post">
+<form asp-controller="Dish" asp-action="Save" method="post" id="frmSaveDish">
     <label asp-for="Name"></label>  <input asp-for="Name" data-val="true" data-val-required="The name field is required."/><span asp-validation-for="Name"></span> <br />
-
+    <input type="hidden" id="dishId" value="@Model.Id" />
     <input type="submit" />
 </form>
 Item list:
