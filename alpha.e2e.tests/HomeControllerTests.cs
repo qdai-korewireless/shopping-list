@@ -4,6 +4,7 @@ using Xunit;
 using alpha;
 using System.Threading.Tasks;
 using FluentAssertions;
+using alpha.e2e.tests.Helpers;
 
 namespace alpha.e2e.tests
 {
@@ -18,8 +19,6 @@ namespace alpha.e2e.tests
 
         [Theory]
         [InlineData("/Home/Index")]
-        [InlineData("/Dish/Index")]
-        [InlineData("/Item/Index")]
         public async Task Get_EndpointsReturnSuccessAndCorrectContentType(string url)
         {
             // Arrange
@@ -33,6 +32,26 @@ namespace alpha.e2e.tests
             response.Content.Headers.ContentType.ToString().Should().Be("text/html; charset=utf-8");
 
         }
+
+        [Theory]
+        [InlineData("/Home/Index")]
+        public async Task Index_CanAddDish_OnDishPage(string url)
+        {
+            // Arrange
+            var client = _factory.CreateClient();
+
+            // Act
+            var response = await client.GetAsync(url);
+            var content = await HtmlHelpers.GetDocumentAsync(response);
+            var addDishLink = content.QuerySelector("#lnkAddDish");
+            var addDishUrl = addDishLink.GetAttribute("href");
+
+            // Assert
+
+            addDishUrl.Should().Be("/Dish/Index");
+
+        }
+
 
     }
 }
