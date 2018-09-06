@@ -11,11 +11,11 @@ using AngleSharp.Dom.Html;
 namespace alpha.e2e.tests
 {
 
-	public class HomeControllerTests: IClassFixture<WebApplicationFactory<Startup>>
+	public class AllTests: IClassFixture<WebApplicationFactory<Startup>>
     {
         private readonly WebApplicationFactory<Startup> _factory;
 
-        public HomeControllerTests(WebApplicationFactory<Startup> factory){
+        public AllTests(WebApplicationFactory<Startup> factory){
             this._factory = factory;
         }
 
