@@ -16,6 +16,9 @@ namespace alpha.Services
         void DeleteDish(Guid id);
         Guid AddItemToDish(Item item);
         Dish GetDish(Guid dishId);
+        Item GetItem(Guid id);
+        void DeleteItem(Guid id);
+        void UpdateItem(Item item);
     }
     public class MealService: IMealService
     {
@@ -55,6 +58,12 @@ namespace alpha.Services
             }
         }
 
+        public void DeleteItem(Guid id)
+        {
+            var item = itemRepo.Get(id);
+            itemRepo.Delete(item);
+        }
+
         public Dish GetDish(Guid dishId)
         {
             var dish = dishRepo.Get(dishId);
@@ -71,6 +80,12 @@ namespace alpha.Services
             return dishes;
         }
 
+        public Item GetItem(Guid id)
+        {
+            var item = itemRepo.Get(id);
+            return item;
+        }
+
         public IList<Item> ShowItemsForDish(Dish dish)
         {
             throw new NotImplementedException();
@@ -81,5 +96,9 @@ namespace alpha.Services
             dishRepo.Update(dish);
         }
 
+        public void UpdateItem(Item item)
+        {
+            itemRepo.Update(item);
+        }
     }
 }

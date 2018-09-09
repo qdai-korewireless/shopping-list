@@ -18,16 +18,36 @@ namespace alpha.Controllers
             this.mealService = mealService;
         }
         // GET: /<controller>/
-        public IActionResult Index(Guid dishId)
+        public IActionResult Index(Guid dishId, Guid ?itemId)
         {
-            return View("Index", new Item() {DishId = dishId});
+            var item = new Item() { DishId = dishId, Id = itemId ?? Guid.Empty };
+
+            if(itemId.HasValue){
+                item = mealService.GetItem(itemId.Value);
+            }
+
+
+            return View("Index", item);
         }
 
         [HttpPost()]
-        public IActionResult AddItem([FromForm] Item item)
+        public IActionResult SaveItem([FromForm] Item item)
         {
-            var itemId = mealService.AddItemToDish(item);
+            if(item.Id != Guid.Empty){
+                mealService.UpdateItem(item);
+            }
+            else{
+                var itemId = mealService.AddItemToDish(item);
+            }
+
             return RedirectToAction("Index", "Dish", new {id = item.DishId});
+        }
+
+        [HttpGet]
+        public IActionResult DeleteItem(Guid itemId){
+            var item = mealService.GetItem(itemId);
+            mealService.DeleteItem(itemId);
+            return RedirectToAction("Index","Dish", new { id = item.DishId });
         }
     }
 }

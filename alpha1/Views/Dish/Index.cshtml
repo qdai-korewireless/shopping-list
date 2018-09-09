@@ -18,10 +18,10 @@ Item list:
 
         @foreach (var i in Model.Items)
         {
-        <li>@i.Name: @i.Quantity</li>
+        <li>@i.Name: @i.Quantity <a asp-controller="Item" asp-action="Index" asp-route-dishId="@Model.Id" asp-route-itemId="@i.Id">Edit</a> <a asp-controller="Item" asp-action="DeleteItem" asp-route-itemId="@i.Id">Delete</a></li>
         }
 
-        
+
     </ul>
 }
     <a asp-controller="Item" asp-action="Index" asp-route-dishId="@Model.Id" id="lnkAddItem">Add Item</a>
