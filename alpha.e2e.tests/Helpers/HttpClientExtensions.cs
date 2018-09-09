@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using AngleSharp.Dom.Html;
+using Microsoft.AspNetCore.Routing;
 using Xunit;
 
 namespace alpha.e2e.tests.Helpers
@@ -16,7 +18,18 @@ namespace alpha.e2e.tests.Helpers
         {
             return client.SendAsync(form, submitButton, new Dictionary<string, string>());
         }
-
+        public static async Task<IHtmlDocument> SendAsyncGetContent(
+            this HttpClient client,
+            IHtmlFormElement form,
+            IHtmlElement submitButton, 
+            object formValuesObj
+        )
+        {
+            var formValues = new RouteValueDictionary(formValuesObj).Select(d => KeyValuePair.Create<string,string>(d.Key,d.Value.ToString()));
+            var resp = await client.SendAsync(form, submitButton, formValues);
+            var content = await HtmlHelpers.GetDocumentAsync(resp);
+            return content;
+        }
         public static Task<HttpResponseMessage> SendAsync(
             this HttpClient client,
             IHtmlFormElement form,

@@ -8,8 +8,8 @@
 
 <form asp-controller="Dish" asp-action="Save" method="post" id="frmSaveDish">
     <label asp-for="Name"></label>  <input asp-for="Name" data-val="true" data-val-required="The name field is required."/><span asp-validation-for="Name"></span> <br />
-    <input type="hidden" id="dishId" value="@Model.Id" />
-    <input type="submit" />
+    <input type="hidden" id="id" name="id" value="@Model.Id" />
+    <input type="submit" id="btnSaveDish"/>
 </form>
 Item list:
 @if (Model.Items != null && Model.Items.Any())
@@ -24,9 +24,9 @@ Item list:
         
     </ul>
 }
-    <a asp-controller="Item" asp-action="Index" asp-route-dishId="@Model.Id">Add Item</a>
+    <a asp-controller="Item" asp-action="Index" asp-route-dishId="@Model.Id" id="lnkAddItem">Add Item</a>
 
-    <a asp-controller="Home">back to home</a>
+    <a asp-controller="Home" id="lnkBackHome">back to home</a>
 
 
 

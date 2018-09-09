@@ -6,12 +6,12 @@
 }
 
 
-<form asp-controller="Item" asp-action="AddItem" method="post">
+<form asp-controller="Item" asp-action="AddItem" method="post" id="frmItem">
 
     <b>Name</b> <input asp-for="@Model.Name" />
     <b>Quantity</b> <input asp-for="@Model.Quantity" />
     <b>Type</b> <input asp-for="@Model.Type" />
     <input asp-for="@Model.Id" type="hidden" />
     <input asp-for="@Model.DishId" type="hidden"/>
-    <input type="submit" />
+    <input type="submit" id="btnAddItem"/>
 </form>

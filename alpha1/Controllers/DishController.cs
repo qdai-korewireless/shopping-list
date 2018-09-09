@@ -44,7 +44,7 @@ namespace alpha.Controllers
                     dish = mealService.AddDish(dish);
                 }
             }
-            return View("Index", dish);
+            return RedirectToAction("Index","Dish", new {id = dish.Id});
         }
 
 

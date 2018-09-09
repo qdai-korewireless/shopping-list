@@ -8,8 +8,13 @@ using AngleSharp.Network;
 
 namespace alpha.e2e.tests.Helpers
 {
-    public class HtmlHelpers
+    public static class HtmlHelpers
     {
+
+        public static async Task<IHtmlDocument> GetContentAsync(this HttpClient client, string url){
+            var response = await client.GetAsync(url);
+            return await GetDocumentAsync(response);
+        }
         public static async Task<IHtmlDocument> GetDocumentAsync(HttpResponseMessage response)
         {
             var content = await response.Content.ReadAsStringAsync();
@@ -40,5 +45,6 @@ namespace alpha.e2e.tests.Helpers
                 }
             }
         }
+
     }
 }
