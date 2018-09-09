@@ -18,9 +18,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\alpha\alpha.csproj" />
+    <Compile Remove="EmptyClass.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Remove="EmptyClass.cs" />
+    <ProjectReference Include="..\alpha1\alpha1.csproj" />
   </ItemGroup>
 </Project>

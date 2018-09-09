@@ -1,7 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Xunit;
-using alpha;
+using alpha1;
 using System.Threading.Tasks;
 using FluentAssertions;
 using alpha.e2e.tests.Helpers;
