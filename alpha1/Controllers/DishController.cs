@@ -43,8 +43,10 @@ namespace alpha.Controllers
                 {
                     dish = mealService.AddDish(dish);
                 }
+
+                return RedirectToAction("Index", "Dish", new { id = dish.Id });
             }
-            return RedirectToAction("Index","Dish", new {id = dish.Id});
+            return View(ModelState);
         }
 
 

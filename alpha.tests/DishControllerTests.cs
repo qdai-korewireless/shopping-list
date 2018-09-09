@@ -77,9 +77,9 @@ namespace alpha.tests
             var sut = dishController.Save(dish);
 
             //Assert
-            sut.Should().BeOfType<ViewResult>().Which.ViewName.Should().Be("Index");
-            sut.Should().BeAssignableTo<IActionResult>().And.BeOfType<ViewResult>()
-               .Which.Model.Should().NotBeNull().And.BeOfType<Dish>();
+            sut.Should().BeOfType<RedirectToActionResult>().Which.ActionName.Should().Be("Index");
+            sut.Should().BeAssignableTo<IActionResult>().And.BeOfType<RedirectToActionResult>()
+               .Which.RouteValues.Should().NotBeNull().And.ContainValue(dish.Id);
               
 
             mealMock.Verify();
@@ -100,9 +100,9 @@ namespace alpha.tests
             var sut = dishController.Save(dish);
 
             //Assert
-            sut.Should().BeOfType<ViewResult>().Which.ViewName.Should().Be("Index");
-            sut.Should().BeAssignableTo<IActionResult>().And.BeOfType<ViewResult>()
-               .Which.Model.Should().NotBeNull().And.BeOfType<Dish>();
+            sut.Should().BeOfType<RedirectToActionResult>().Which.ActionName.Should().Be("Index");
+            sut.Should().BeAssignableTo<IActionResult>().And.BeOfType<RedirectToActionResult>()
+               .Which.RouteValues.Should().NotBeNull().And.ContainValue(dish.Id);
 
 
             mealMock.Verify();
